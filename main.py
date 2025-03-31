@@ -22,7 +22,7 @@ async def on_message(message):
                 member = message.guild.get_member(message.author.id)
                 timeout_duration = datetime.timedelta(minutes=random.randint(1, 20))  # nastavitelny cas
                 await member.timeout(timeout_duration, reason=f"Timeout na {timeout_duration} minút")
-                await message.channel.send(f"fMisko dostal timeout na {timeout_duration} minut pretoze pouzil zle slovicko!!!")
+                await message.channel.send(f"Misko dostal timeout na {timeout_duration} minut pretoze pouzil zle slovicko!!!")
 
 
 client.run(os.getenv('TOKEN'))
