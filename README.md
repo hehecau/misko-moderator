@@ -4,7 +4,7 @@ Open source discord bot na fun príkazy a nastolenie poriadku pre miska
 ## Funkcie
 Vsetky príkazy sú uložené pod syntaxom ?príkaz
 
-**?helpme** - zobrazí help menu
+**?helpme** - zobrazí help menu\n
 **?spamuser** - začne spam-tagovať určeného uživateľa
 
 ## Inštalácia
