@@ -33,7 +33,8 @@ class CommandCog(commands.Cog):
         await ctx.send(embed=embed)
 
     #timeout
-    @commands.command("timeout")
+    @commands.command(name="timeout")
+    @commands.has_permissions(administrator=True)
     async def timeout(self, ctx, user: discord.Member, length: int):
         if length < 43200: # mesiac
             duration = timedelta(seconds=length * 60)
@@ -47,6 +48,19 @@ class CommandCog(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Použitie: `?timeout <@User> <Dĺžka (minúty)>`")
 
+    @commands.command(name="clean")
+    @commands.has_permissions(manage_messages=True)
+    async def cleanMessages(self, ctx, count: int):
+        if count < 100:
+            await ctx.channel.purge(limit=count)
+            await ctx.send(f"Zmazaných {count} správ.", delete_after=5)
+        else:
+            await ctx.send(f"Nemožno zmazať viac ako 100 správ.", delete_after=5)
+
+    @cleanMessages.error
+    async def cleanMessageError(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Použitie: `?clean <Počet správ>")
 
 
 async def setup(bot):
