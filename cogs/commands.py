@@ -1,3 +1,4 @@
+import random
 import time
 from datetime import timedelta
 import discord
@@ -62,6 +63,25 @@ class CommandCog(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Použitie: `?clean <Počet správ>")
 
+    @commands.command(name="coinflip")
+    async def makeACoinFlip(self, ctx, side: int, opponent: discord.Member):
+        vysledok = random.randint(1, 2)
+        side_string = "hlava" if side == 1 else "znak"
+        vysledok_str = "hlava" if vysledok == 1 else "znak"
+        embed = discord.Embed(title="Coin Flip", description=f"Coinflip medzi - {ctx.author.display_name} a {opponent.display_name}\n{ctx.author.display_name} si vybral: **{side_string}**\n{opponent.display_name} si vybral: **{vysledok_str}**", colour=0xfffb00)
+        embed.set_author(name="Coin Flip - Misko bot")
+
+        if side == vysledok:
+            embed.add_field(name="Výsledok hodu mincou", value=f"Výsledok hodu je: **{vysledok_str}** - vyhráva {ctx.author.display_name}!", inline=False)
+        else:
+            embed.add_field(name="Výsledok hodu mincou", value=f"Výsledok hodu je: **{vysledok_str}** - vyhráva {opponent.display_name}!", inline=False)
+
+        if vysledok == 1:
+            embed.set_image(url="https://i.imgur.com/dc76ePW.png")
+        else:
+            embed.set_image(url="https://i.imgur.com/QP5O8dV.png")
+        embed.set_footer(text="Coinflip - Misko bot")
+        await ctx.send(embed=embed)
 
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
