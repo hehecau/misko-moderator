@@ -31,7 +31,7 @@ async def daily_message():
     link = soup_data.find('a', class_='name-link first-name')
     title = link['title']
 
-    embed = discord.Embed(title=f"Dnešný deň - {today.strftime("%d.%m.%Y")}", colour=0xffdd00)
+    embed = discord.Embed(title=f"Dnešný deň - {today.strftime('%d.%m.%Y')}", colour=0xffdd00)
     embed.set_author(name="Misko Bot")
     embed.add_field(name="Koniec roka", value=f"Do konca roka ostáva: **{end_of_year_days} dní**", inline=False)
     embed.add_field(name="Koniec školského roka", value=f"Do konca školského roka ostáva: **{end_of_school_year_days} dní**", inline=False)
