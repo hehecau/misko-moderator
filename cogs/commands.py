@@ -28,7 +28,7 @@ class CommandCog(commands.Cog):
     async def sendHelpMessage(self, ctx):
         embed = discord.Embed(title="Misko bot v1.0", url="https://github.com/hehecau/misko-moderator", description="Open source discord.py based discord bot na moderáciu miska.", colour=0xffdd00)
         embed.set_author(name="Misko bot")
-        embed.add_field(name="Príkazy", value="**?spamuser <Počet> <Uživateľ>** - Podľa počtu začne spamovať tag na uživateľa (misko nepodporuje nad 100 braincells)\n**?helpme** - Zobrazí toto menu.\n**?timeout <@User> <Dĺžka>** - timeoutne používateľa", inline=False)
+        embed.add_field(name="Príkazy", value="**?spamuser <Počet> <Uživateľ>** - Podľa počtu začne spamovať tag na uživateľa (misko nepodporuje nad 100 braincells)\n**?helpme** - Zobrazí toto menu.\n**?timeout <@User> <Dĺžka>** - timeoutne používateľa\n**?clean <Počet správ>** - vyčistí správy\n**?coinflip <Strana (1 - Hlava, 2 - Znak)> <Súper>** - hod mincou", inline=False)
         embed.set_thumbnail(url="https://i.imgur.com/fm6q0oN.png")
         embed.set_footer(text="misko moderator - vyrobene v socialistickej demokratickej republike", icon_url="https://i.imgur.com/fm6q0oN.png")
         await ctx.send(embed=embed)
@@ -82,6 +82,11 @@ class CommandCog(commands.Cog):
             embed.set_image(url="https://i.imgur.com/QP5O8dV.png")
         embed.set_footer(text="Coinflip - Misko bot")
         await ctx.send(embed=embed)
+
+    @makeACoinFlip.error
+    async def coinflip_error(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Použitie: `?coinflip <Strana mince (1 - hlava, 2 - znak)> <Súper>")
 
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
